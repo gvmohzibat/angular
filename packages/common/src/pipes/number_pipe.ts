@@ -279,7 +279,7 @@ export class CurrencyPipe implements PipeTransform {
 
     try {
       const num = strToNumber(value);
-      return formatCurrency(num, locale, currency, currencyCode, digitsInfo);
+      return formatCurrency(num, locale, currency, currency, digitsInfo);
     } catch (error) {
       throw invalidPipeArgumentError(CurrencyPipe, error.message);
     }
