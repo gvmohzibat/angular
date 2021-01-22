@@ -253,7 +253,7 @@ export class CurrencyPipe implements PipeTransform {
       display?: 'code'|'symbol'|'symbol-narrow'|string|boolean, digitsInfo?: string,
       locale?: string): string|null;
   transform(
-      value: number|string|null|undefined, currencyCode?: string,
+      value: number|string|null|undefined, currencyCode: string = this._defaultCurrencyCode,
       display: 'code'|'symbol'|'symbol-narrow'|string|boolean = 'symbol', digitsInfo?: string,
       locale?: string): string|null {
     if (!isValue(value)) return null;
@@ -268,7 +268,7 @@ export class CurrencyPipe implements PipeTransform {
       display = display ? 'symbol' : 'code';
     }
 
-    let currency: string = currencyCode || this._defaultCurrencyCode;
+    let currency: string = currencyCode;
     if (display !== 'code') {
       if (display === 'symbol' || display === 'symbol-narrow') {
         currency = getCurrencySymbol(currency, display === 'symbol' ? 'wide' : 'narrow', locale);
@@ -279,7 +279,7 @@ export class CurrencyPipe implements PipeTransform {
 
     try {
       const num = strToNumber(value);
-      return formatCurrency(num, locale, currency, currency, digitsInfo);
+      return formatCurrency(num, locale, currency, currencyCode, digitsInfo);
     } catch (error) {
       throw invalidPipeArgumentError(CurrencyPipe, error.message);
     }
