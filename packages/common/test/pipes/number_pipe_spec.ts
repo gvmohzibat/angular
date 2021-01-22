@@ -116,11 +116,9 @@ import {beforeEach, describe, expect, it} from '@angular/core/testing/src/testin
 
     describe('CurrencyPipe', () => {
       let pipe: CurrencyPipe;
-      let clpPipe: CurrencyPipe;
 
       beforeEach(() => {
         pipe = new CurrencyPipe('en-US', 'USD');
-        clpPipe = new CurrencyPipe('en-US', 'CLP');
       });
 
       describe('transform', () => {
@@ -141,8 +139,12 @@ import {beforeEach, describe, expect, it} from '@angular/core/testing/src/testin
               .toEqual('€ 123.456.789,00');
           expect(pipe.transform(5.1234, 'EUR', '', '', 'de-at')).toEqual('5,12');
           expect(pipe.transform(5.1234, 'DKK', '', '', 'da')).toEqual('5,12');
-          expect(pipe.transform(1234)).toEqual('1,234');
         });
+
+        it('should use the injected default currency code if none is provided', () => {
+		  const clpPipe = new CurrencyPipe('en-US', 'CLP');
+		  expect(clpPipe.transform(1234)).toEqual('1,234');
+		});
 
         it('should support any currency code name', () => {
           // currency code is unknown, default formatting options will be used
