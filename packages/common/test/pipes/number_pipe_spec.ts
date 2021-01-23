@@ -142,9 +142,9 @@ import {beforeEach, describe, expect, it} from '@angular/core/testing/src/testin
         });
 
         it('should use the injected default currency code if none is provided', () => {
-		  const clpPipe = new CurrencyPipe('en-US', 'CLP');
-		  expect(clpPipe.transform(1234)).toEqual('1,234');
-		});
+          const clpPipe = new CurrencyPipe('en-US', 'CLP');
+          expect(clpPipe.transform(1234)).toEqual('CLP1,234');
+        });
 
         it('should support any currency code name', () => {
           // currency code is unknown, default formatting options will be used
